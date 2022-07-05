@@ -1,0 +1,27 @@
+version: '2'
+services:
+  mysql:
+    image: mysql #down image 
+    container_name: mysql-studentCRUDData
+    hostname: mysql_data  #chuỗi được nối vào sau container name
+    environment: # thiết lập file cấu hình như user, password, database, utf8, ...
+      # - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=bzcom123
+      - MYSQL_DATABASE=student
+      # - MYSQL_PORT_NUMBER=13336
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'mysql_data:/mysql'
+    ports:
+      - '9090:3306'
+    build: .
+    tty: true
+  crud_backend:
+    build: .
+    ports:
+      - '8181:8181'
+volumes:                              # TẠO Ổ ĐĨA
+  mysql:
+    driver: local
+  mysql_data:
+    driver: local
